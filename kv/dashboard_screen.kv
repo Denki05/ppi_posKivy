@@ -1,0 +1,51 @@
+<DashboardScreen>:
+    name: 'dashboard'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        
+        Label:
+            text: 'Dashboard'
+            font_size: 28
+            size_hint_y: None
+            height: 50
+            color: 0, 0, 0, 1  # Black color for text
+            bold: True
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            
+            Button:
+                text: 'Products'
+                on_press: app.root.current = 'product'
+                size_hint_x: 0.25
+                background_color: 0.1, 0.5, 0.8, 1  # Blue color
+                color: 1, 1, 1, 1  # White text
+                font_size: 18
+            
+            Button:
+                text: 'Sales'
+                on_press: app.root.current = 'sales'
+                size_hint_x: 0.25
+                background_color: 0.1, 0.5, 0.8, 1  # Blue color
+                color: 1, 1, 1, 1  # White text
+                font_size: 18
+            
+            Button:
+                text: 'Logout'
+                on_press: root.logout()
+                size_hint_x: 0.25
+                background_color: 0.8, 0.1, 0.1, 1  # Red color
+                color: 1, 1, 1, 1  # White text
+                font_size: 18
+        
+        # Optional: Add a greeting label or other UI elements
+        Label:
+            text: 'Welcome to the Dashboard! Explore your options.'
+            font_size: 16
+            size_hint_y: None
+            height: 40
+            color: 0.5, 0.5, 0.5, 1  # Gray color for the greeting text

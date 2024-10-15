@@ -1,0 +1,65 @@
+<LoginScreen>:
+    name: 'login'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 20
+
+        Label:
+            text: 'Login'
+            font_size: 32
+            bold: True
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: username
+            hint_text: 'Username'
+            multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 1, 1, 1, 1  # White background for text input
+            foreground_color: 0, 0, 0, 1  # Black text color
+            hint_text_color: 0.7, 0.7, 0.7, 1  # Light gray for hint text
+            padding_x: 10  # Padding inside the TextInput
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+
+        TextInput:
+            id: password
+            hint_text: 'Password'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 1, 1, 1, 1  # White background for text input
+            foreground_color: 0, 0, 0, 1  # Black text color
+            hint_text_color: 0.7, 0.7, 0.7, 1  # Light gray for hint text
+            padding_x: 10  # Padding inside the TextInput
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+
+        Button:
+            text: 'Login'
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1  # Blue color
+            color: 1, 1, 1, 1  # White text color
+            bold: True
+            on_press: 
+                root.authenticate_user(username.text, password.text)
+            background_normal: ''  # Remove default background
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+            padding: [20, 10]  # Padding inside the button
+
+        Label:
+            id: login_message
+            text: ''
+            color: 1, 0, 0, 1  # Red for error messages
+            size_hint_y: None
+            height: 30
+
+        Spinner:
+            id: loading_spinner
+            text: 'Loading...'
+            size_hint_y: None
+            height: 30
+            opacity: 0  # Initially hidden

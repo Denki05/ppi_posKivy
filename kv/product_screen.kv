@@ -1,0 +1,25 @@
+<ProductScreen>:
+    name: 'product'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        Label:
+            text: 'Product List'
+            font_size: 24
+            size_hint_y: None
+            height: 40
+        ScrollView:
+            GridLayout:
+                id: product_grid
+                cols: 1  # Adjust number of columns as needed
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 40
+                row_force_default: True
+
+        Button:
+            text: 'Back to Dashboard'
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1
+            on_press: app.root.current = 'dashboard'
