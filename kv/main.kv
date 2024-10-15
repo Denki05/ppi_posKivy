@@ -1,0 +1,133 @@
+ScreenManager:
+    LoginScreen:
+    DashboardScreen:
+    ProductScreen:
+    SalesScreen:
+
+<LoginScreen>:
+    name: 'login'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Login'
+            font_size: 24
+        TextInput:
+            id: username
+            hint_text: 'Username'
+            multiline: False
+        TextInput:
+            id: password
+            hint_text: 'Password'
+            password: True
+            multiline: False
+        Button:
+            text: 'Login'
+            on_press: root.authenticate_user(username.text, password.text)
+        Label:
+            id: login_message
+            text: ''
+            color: 1, 0, 0, 1  # Red for error messages
+
+<DashboardScreen>:
+    name: 'dashboard'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Dashboard'
+            font_size: 24
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
+            Button:
+                text: 'Home'
+                on_press: app.root.current = 'dashboard'
+            Button:
+                text: 'Product'
+                on_press: app.root.current = 'product'
+            Button:
+                text: 'Sales'
+                on_press: app.root.current = 'sales'
+            Button:
+                text: 'Logout'
+                on_press: app.root.current = 'login'
+
+<ProductScreen>:
+    name: 'product'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Product List'
+            font_size: 24
+        ScrollView:
+            GridLayout:
+                id: product_table
+                cols: 4  # Number of columns
+                size_hint_y: None
+                height: self.minimum_height  # Set height based on content
+                row_default_height: 40  # Default row height
+                row_force_default: True  # Force row height
+        Button:
+            text: 'Back to Dashboard'
+            on_press: app.root.current = 'dashboard'
+
+<SalesScreen>:
+    name: 'sales'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Sales'
+            font_size: 24
+
+        TextInput:
+            id: customer
+            hint_text: 'Customer Name'
+            multiline: False
+
+        TextInput:
+            id: address
+            hint_text: 'Address'
+            multiline: False
+
+        Spinner:
+            id: brand_name
+            text: 'Select Brand'
+            values: ['GCF', 'Senses', 'PPI FF', 'PPI NON FF', 'PPI X']  # Update with actual brand names
+            on_text: root.update_products(self.text)  # Call to update products based on brand selection
+
+        Spinner:
+            id: product_spinner
+            text: 'Select Product'
+            values: []  # Start with no values; will be set dynamically
+            on_text: root.on_product_select(self.text)  # Update product code based on selected product
+
+        TextInput:
+            id: product_code
+            hint_text: 'Product Code'
+            multiline: False
+            readonly: True  # Make it read-only since it is auto-filled
+
+        TextInput:
+            id: quantity
+            hint_text: 'Quantity'
+            input_filter: 'int'
+            multiline: False
+
+        Button:
+            text: 'Save Sale'
+            on_press: root.save_sale(customer.text, address.text, quantity.text)
+
+        Label:
+            id: sale_message
+            text: ''
+            color: 0, 1, 0, 1  # Green for success messages
+
+        Button:
+            text: 'Back to Dashboard'
+            on_press: app.root.current = 'dashboard'
+
