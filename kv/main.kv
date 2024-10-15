@@ -1,4 +1,6 @@
-ScreenManager:
+#:kivy 2.1.0
+
+<ScreenManager>:
     LoginScreen:
     DashboardScreen:
     ProductScreen:
@@ -8,69 +10,123 @@ ScreenManager:
     name: 'login'
     BoxLayout:
         orientation: 'vertical'
-        padding: 20
-        spacing: 10
+        padding: 40
+        spacing: 20
+
         Label:
             text: 'Login'
-            font_size: 24
+            font_size: 32
+            bold: True
+            size_hint_y: None
+            height: 60
+
         TextInput:
             id: username
             hint_text: 'Username'
             multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 1, 1, 1, 1  # White background for text input
+            foreground_color: 0, 0, 0, 1  # Black text color
+            hint_text_color: 0.7, 0.7, 0.7, 1  # Light gray for hint text
+            padding_x: 10  # Padding inside the TextInput
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+
         TextInput:
             id: password
             hint_text: 'Password'
             password: True
             multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 1, 1, 1, 1  # White background for text input
+            foreground_color: 0, 0, 0, 1  # Black text color
+            hint_text_color: 0.7, 0.7, 0.7, 1  # Light gray for hint text
+            padding_x: 10  # Padding inside the TextInput
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+
         Button:
             text: 'Login'
-            on_press: root.authenticate_user(username.text, password.text)
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1  # Blue color
+            color: 1, 1, 1, 1  # White text color
+            bold: True
+            on_press: 
+                root.authenticate_user(username.text, password.text)
+            background_normal: ''  # Remove default background
+            border_radius: [10, 10, 10, 10]  # Rounded corners
+            padding: [20, 10]  # Padding inside the button
+
         Label:
             id: login_message
             text: ''
             color: 1, 0, 0, 1  # Red for error messages
+            size_hint_y: None
+            height: 30
+
+        Spinner:
+            id: loading_spinner
+            text: 'Loading...'
+            size_hint_y: None
+            height: 30
+            opacity: 0  # Initially hidden
 
 <DashboardScreen>:
     name: 'dashboard'
     BoxLayout:
         orientation: 'vertical'
+        padding: 20
+        spacing: 10
         Label:
             text: 'Dashboard'
             font_size: 24
+            size_hint_y: None
+            height: 40
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
             height: 50
             Button:
-                text: 'Home'
-                on_press: app.root.current = 'dashboard'
-            Button:
-                text: 'Product'
+                text: 'Products'
                 on_press: app.root.current = 'product'
+                size_hint_x: 0.25
+                background_color: 0.1, 0.5, 0.8, 1
             Button:
                 text: 'Sales'
                 on_press: app.root.current = 'sales'
+                size_hint_x: 0.25
+                background_color: 0.1, 0.5, 0.8, 1
             Button:
                 text: 'Logout'
-                on_press: app.root.current = 'login'
+                on_press: root.logout()
+                size_hint_x: 0.25
+                background_color: 0.8, 0.1, 0.1, 1  # Red color
 
 <ProductScreen>:
     name: 'product'
     BoxLayout:
         orientation: 'vertical'
+        padding: 20
         Label:
             text: 'Product List'
             font_size: 24
+            size_hint_y: None
+            height: 40
         ScrollView:
             GridLayout:
-                id: product_table
-                cols: 4  # Number of columns
+                id: product_grid
+                cols: 1  # Adjust number of columns as needed
                 size_hint_y: None
-                height: self.minimum_height  # Set height based on content
-                row_default_height: 40  # Default row height
-                row_force_default: True  # Force row height
+                height: self.minimum_height
+                row_default_height: 40
+                row_force_default: True
+
         Button:
             text: 'Back to Dashboard'
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1
             on_press: app.root.current = 'dashboard'
 
 <SalesScreen>:
@@ -83,51 +139,59 @@ ScreenManager:
         Label:
             text: 'Sales'
             font_size: 24
+            size_hint_y: None
+            height: 40
 
         TextInput:
             id: customer
             hint_text: 'Customer Name'
             multiline: False
+            size_hint_y: None
+            height: 40
 
         TextInput:
             id: address
             hint_text: 'Address'
             multiline: False
+            size_hint_y: None
+            height: 40
 
         Spinner:
             id: brand_name
             text: 'Select Brand'
-            values: ['GCF', 'Senses', 'PPI FF', 'PPI NON FF', 'PPI X']  # Update with actual brand names
-            on_text: root.update_products(self.text)  # Call to update products based on brand selection
+            values: ['GCF', 'Senses', 'PPI FF', 'PPI LO']
+            size_hint_y: None
+            height: 40
+            on_text: root.update_products(self.text)
 
         Spinner:
             id: product_spinner
             text: 'Select Product'
-            values: []  # Start with no values; will be set dynamically
-            on_text: root.on_product_select(self.text)  # Update product code based on selected product
-
-        TextInput:
-            id: product_code
-            hint_text: 'Product Code'
-            multiline: False
-            readonly: True  # Make it read-only since it is auto-filled
+            size_hint_y: None
+            height: 40
 
         TextInput:
             id: quantity
             hint_text: 'Quantity'
-            input_filter: 'int'
             multiline: False
+            size_hint_y: None
+            height: 40
 
         Button:
             text: 'Save Sale'
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1
             on_press: root.save_sale(customer.text, address.text, quantity.text)
 
         Label:
             id: sale_message
             text: ''
-            color: 0, 1, 0, 1  # Green for success messages
+            color: 1, 0, 0, 1  # Red for error messages
 
         Button:
             text: 'Back to Dashboard'
+            size_hint_y: None
+            height: 50
+            background_color: 0.1, 0.5, 0.8, 1
             on_press: app.root.current = 'dashboard'
-
