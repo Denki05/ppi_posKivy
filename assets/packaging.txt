@@ -1,2 +1,2 @@
-1,100 GRAM
-2,500 GRAM
+1,100 gram
+2,500 gram

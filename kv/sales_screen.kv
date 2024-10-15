@@ -28,7 +28,7 @@
         Spinner:
             id: brand_name
             text: 'Select Brand'
-            values: ['GCF', 'Senses', 'PPI FF', 'PPI LO']
+            values: ['GCF', 'Senses']
             size_hint_y: None
             height: 40
             on_text: root.update_products(self.text)
@@ -36,6 +36,12 @@
         Spinner:
             id: product_spinner
             text: 'Select Product'
+            size_hint_y: None
+            height: 40
+
+        Spinner:
+            id: packaging_spinner
+            text: 'Select Packaging'  # New packaging spinner
             size_hint_y: None
             height: 40
 

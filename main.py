@@ -8,7 +8,7 @@ from screens.sales_screen import SalesScreen
 from kivy.core.window import Window
 
 # Set the window size
-Window.size = (800, 600)
+Window.size = (300, 600)
 
 class POSApp(App):
     def build(self):
